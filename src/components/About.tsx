@@ -15,8 +15,8 @@ export function About() {
               começaram a ocupar o mesmo caderno.
             </p>
             <p>
-              A carreira não está esperando o diploma. Trabalho na Ateros, com tecnologia para o
-              varejo, e já operei o digital da KA Home Center. No paralelo, construo produtos
+              A carreira não está esperando o diploma. Trabalho na Terus, com tecnologia para o
+              varejo, e já operei o digital da Acal. No paralelo, construo produtos
               próprios e projetos para outras pessoas.
             </p>
             <p>

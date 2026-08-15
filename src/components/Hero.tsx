@@ -59,7 +59,7 @@ export function Hero() {
             Ver o trabalho
           </a>
           <span className="hidden h-px w-10 bg-line md:block" />
-          <span>UNIFOR · Ateros · Produtos próprios</span>
+          <span>UNIFOR · Terus · Produtos próprios</span>
         </div>
       </div>
     </section>

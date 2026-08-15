@@ -183,12 +183,12 @@ export const path = [
   },
   {
     phase: 'Professional',
-    title: 'KA Home Center',
+    title: 'Acal',
     text: 'E-commerce, tráfego, follow-up, presença digital. O funil deixou de ser teoria.',
   },
   {
     phase: 'Professional',
-    title: 'Ateros',
+    title: 'Terus',
     text: 'Empresa de tecnologia para o varejo. SaaS, operação digital, produto e análise no mesmo ambiente.',
   },
   {
@@ -205,13 +205,13 @@ export const path = [
 
 export const experience = [
   {
-    org: 'Ateros',
+    org: 'Terus',
     context: 'Atual',
     field: 'Tecnologia para varejo',
     text: 'Empresa de tecnologia com soluções SaaS para operação, gestão, dashboards e acompanhamento. Minha atuação passa por e-commerce, operação digital, produto e estratégias digitais.',
   },
   {
-    org: 'KA Home Center',
+    org: 'Acal',
     context: 'E-commerce',
     field: 'Aquisição e presença digital',
     text: 'Trabalho com o e-commerce da operação: site, tráfego pago, follow-ups, marketing e estratégias de venda. Experiência prática de aquisição, não só de interface.',
