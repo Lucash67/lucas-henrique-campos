@@ -39,6 +39,47 @@
   }
 }
 
+.scene__phone {
+  transform-origin: 80px 80px;
+  animation: scene-tilt 4.8s var(--ease) infinite;
+}
+
+.scene__orbit {
+  transform-box: view-box;
+  transform-origin: 80px 80px;
+  animation: scene-spin 10s linear infinite;
+}
+
+.scene__float {
+  animation: scene-float 4.2s var(--ease) infinite;
+}
+
+@keyframes scene-tilt {
+  0%,
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(3deg) translateY(-4px);
+  }
+}
+
+@keyframes scene-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scene-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -47,7 +88,10 @@
   [data-reveal],
   [data-reveal].is-in,
   a,
-  button {
+  button,
+  .scene__phone,
+  .scene__orbit,
+  .scene__float {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
