@@ -1,4 +1,3 @@
-const DESKTOP = 980
 let observer: IntersectionObserver | null = null
 let index = 0
 
@@ -6,17 +5,13 @@ function reduced() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-function desktop() {
-  return window.matchMedia(`(min-width: ${DESKTOP}px)`).matches
-}
-
-function visible(el: Element) {
-  const r = el.getBoundingClientRect()
-  return r.top < window.innerHeight && r.bottom > 0
-}
-
 function aboveFold(el: Element) {
   return el.getBoundingClientRect().top < window.innerHeight * 0.92
+}
+
+function onScreen(el: Element) {
+  const r = el.getBoundingClientRect()
+  return r.top < window.innerHeight && r.bottom > 0
 }
 
 function reveal(el: Element) {
@@ -33,9 +28,7 @@ function get() {
         reveal(entry.target)
       }
     },
-    desktop()
-      ? { rootMargin: '0px 0px -8% 0px', threshold: 0.14 }
-      : { rootMargin: '0px 0px 0px 0px', threshold: 0.08 },
+    { rootMargin: '0px 0px -12% 0px', threshold: 0.12 },
   )
   return observer
 }
@@ -45,15 +38,10 @@ export function observeReveal(el: Element | null) {
   el.setAttribute('data-observed', '')
 
   if (el instanceof HTMLElement) {
-    el.style.setProperty('--reveal-i', String(index++ % 8))
+    el.style.setProperty('--reveal-i', String(index++ % 6))
   }
 
-  if (reduced()) {
-    reveal(el)
-    return () => {}
-  }
-
-  if (!desktop() && aboveFold(el)) {
+  if (reduced() || aboveFold(el)) {
     reveal(el)
     return () => {}
   }
@@ -63,19 +51,10 @@ export function observeReveal(el: Element | null) {
   return () => io.unobserve(el)
 }
 
-export function bootReveal() {
-  document.querySelectorAll('[data-reveal], [data-desk-reveal]').forEach((el) => {
-    observeReveal(el)
-  })
-  armRevealFailsafe()
-}
-
-/** One-time failsafe: only reveal what is already on screen. */
-function armRevealFailsafe() {
+export function armRevealFailsafe() {
   window.setTimeout(() => {
-    if (reduced()) return
-    document.querySelectorAll('[data-reveal]:not(.is-in), [data-desk-reveal]:not(.is-in)').forEach((el) => {
-      if (visible(el)) reveal(el)
+    document.querySelectorAll('[data-reveal]:not(.is-in)').forEach((el) => {
+      if (onScreen(el)) reveal(el)
     })
   }, 1600)
 }

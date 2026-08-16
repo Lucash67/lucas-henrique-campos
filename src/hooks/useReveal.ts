@@ -1,8 +1,17 @@
 import { useEffect, useRef } from 'react'
-import { observeReveal } from '../lib/reveal'
+import { armRevealFailsafe, observeReveal } from '../lib/reveal'
+
+let armed = false
 
 export function useReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null)
-  useEffect(() => observeReveal(ref.current), [])
+  useEffect(() => {
+    const stop = observeReveal(ref.current)
+    if (!armed) {
+      armed = true
+      armRevealFailsafe()
+    }
+    return stop
+  }, [])
   return ref
 }

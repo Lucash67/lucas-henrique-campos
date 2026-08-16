@@ -1,0 +1,56 @@
+/* MOTION ONLY — opacity, transform, filter, box-shadow. No layout. */
+
+:root {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.75s var(--ease),
+    transform 0.75s var(--ease);
+  transition-delay: calc(var(--reveal-i, 0) * 80ms);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) {
+  a:hover,
+  button:hover,
+  [data-reveal].is-in:hover {
+    transform: translateY(-3px);
+  }
+
+  a:active,
+  button:active {
+    transform: scale(0.98);
+  }
+
+  a,
+  button {
+    transition:
+      transform 0.4s var(--ease),
+      opacity 0.4s var(--ease),
+      box-shadow 0.4s var(--ease);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal],
+  [data-reveal].is-in,
+  a,
+  button {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

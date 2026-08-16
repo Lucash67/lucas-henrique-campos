@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Building } from './components/Building'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
@@ -6,25 +5,23 @@ import { Hero } from './components/Hero'
 import { Identity } from './components/Identity'
 import { Nav } from './components/Nav'
 import { Path } from './components/Path'
-import { Ticker } from './components/Ticker'
 import { Toolkit } from './components/Toolkit'
 import { Work } from './components/Work'
-import { bootReveal } from './lib/reveal'
 
 export default function App() {
-  useEffect(() => {
-    bootReveal()
-  }, [])
-
   return (
     <>
-      <a href="#work" className="skip">
+      <a
+        href="#work"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-mint focus:px-3 focus:py-2 focus:text-bg"
+      >
         Ir para o trabalho
       </a>
+      <div className="atmosphere" aria-hidden />
+      <div className="grain" aria-hidden />
       <Nav />
-      <main>
+      <main className="relative z-10">
         <Hero />
-        <Ticker />
         <Identity />
         <Work />
         <Building />
@@ -32,7 +29,9 @@ export default function App() {
         <Toolkit />
         <Contact />
       </main>
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </>
   )
 }
