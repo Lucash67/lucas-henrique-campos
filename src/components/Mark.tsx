@@ -1,17 +1,18 @@
-type Kind = 'finance' | 'health' | 'landing'
+type Kind = 'phone' | 'ledger' | 'health' | 'landing'
 
 export function ProjectMark({ id }: { id: string }) {
   const kind = markFor(id)
   return (
     <div aria-hidden className="scene">
-      {kind === 'finance' ? <Finance /> : null}
+      {kind === 'phone' ? <Phone /> : null}
+      {kind === 'ledger' ? <Ledger /> : null}
       {kind === 'health' ? <Health /> : null}
       {kind === 'landing' ? <Landing /> : null}
     </div>
   )
 }
 
-function Finance() {
+function Phone() {
   return (
     <svg viewBox="0 0 160 160" className="scene__art">
       <rect className="scene__phone" x="48" y="28" width="64" height="104" rx="10" fill="none" stroke="currentColor" strokeWidth="1.6" />
@@ -19,6 +20,16 @@ function Finance() {
       <rect x="56" y="66" width="32" height="4" rx="2" fill="currentColor" opacity="0.35" />
       <rect x="56" y="76" width="40" height="4" rx="2" fill="currentColor" opacity="0.22" />
       <rect x="56" y="86" width="24" height="4" rx="2" fill="currentColor" opacity="0.22" />
+    </svg>
+  )
+}
+
+function Ledger() {
+  return (
+    <svg viewBox="0 0 160 160" className="scene__art scene__float">
+      <rect x="32" y="36" width="96" height="88" rx="8" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M48 98 L68 74 L86 86 L116 52" fill="none" stroke="var(--color-mint)" strokeWidth="2.2" strokeLinecap="round" />
+      <circle cx="116" cy="52" r="3.2" fill="var(--color-mint)" />
     </svg>
   )
 }
@@ -47,7 +58,8 @@ function Landing() {
 }
 
 function markFor(id: string): Kind {
-  if (id === 'odontology-finance') return 'finance'
+  if (id === 'evolucao-fisica') return 'phone'
+  if (id === 'odontology-finance') return 'ledger'
   if (id === 'malu-nutri') return 'health'
   return 'landing'
 }

@@ -100,8 +100,20 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 'makani',
+    id: 'evolucao-fisica',
     index: '03',
+    name: 'Evolução Física',
+    category: 'Produto · Saúde',
+    year: 'Em curso',
+    description:
+      'Organização de dieta, treino e acompanhamento pessoal. Rotina costuma morar em três apps e um caderno; quero um lugar só para registrar e comparar ao longo do tempo.',
+    technologies: ['React', 'TypeScript', 'Vite'],
+    demoUrl: 'https://evolucaofisica-cursor.vercel.app',
+    githubUrl: 'https://github.com/Lucash67/evolucaofisica-cursor',
+  },
+  {
+    id: 'makani',
+    index: '04',
     name: 'Makani Beach Residence',
     category: 'Imobiliário',
     year: '2026',
@@ -113,7 +125,7 @@ export const projects: Project[] = [
   },
   {
     id: 'mansao',
-    index: '04',
+    index: '05',
     name: 'Mansão Guerreiro',
     category: 'Imobiliário',
     year: '2025',
@@ -125,7 +137,7 @@ export const projects: Project[] = [
   },
   {
     id: 'lm-mall',
-    index: '05',
+    index: '06',
     name: 'LM Office & Mall',
     category: 'Imobiliário',
     year: '2025',
