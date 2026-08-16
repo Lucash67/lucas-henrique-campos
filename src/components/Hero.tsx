@@ -1,67 +1,60 @@
-import { useEffect, useRef } from 'react'
 import { site } from '../data/content'
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 export function Hero() {
-  const stage = useRef<HTMLElement>(null)
-  const glow = useRef<HTMLDivElement>(null)
-  const reduced = usePrefersReducedMotion()
-
-  useEffect(() => {
-    if (reduced) return
-    const root = stage.current
-    const light = glow.current
-    if (!root || !light) return
-
-    const onMove = (e: PointerEvent) => {
-      const r = root.getBoundingClientRect()
-      const x = ((e.clientX - r.left) / r.width) * 100
-      const y = ((e.clientY - r.top) / r.height) * 100
-      light.style.background = `radial-gradient(520px circle at ${x}% ${y}%, rgba(196,165,116,0.16), transparent 55%)`
-    }
-
-    root.addEventListener('pointermove', onMove, { passive: true })
-    return () => root.removeEventListener('pointermove', onMove)
-  }, [reduced])
-
   return (
     <section
       id="top"
-      ref={stage}
-      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden px-5 pb-16 md:px-10 md:pb-20"
+      className="relative flex min-h-[100svh] flex-col justify-between px-5 pt-32 pb-10 md:px-10"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(236,232,225,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(236,232,225,0.045)_1px,transparent_1px)] bg-size-[72px_72px] mask-[radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
-      <div ref={glow} className="pointer-events-none absolute inset-0 transition-opacity duration-300" />
+      <p className="kicker text-mute">
+        {site.city}, {site.state}
+      </p>
 
-      <div className="relative z-10 max-w-6xl">
-        <p className="mb-8 text-[12px] tracking-[0.28em] text-mute uppercase">
-          {site.city} · {site.state} · {site.age}
-        </p>
-        <h1 className="display text-[18vw] text-ink md:text-[9.4vw]">
-          Lucas
+      <div className="relative mx-auto w-full max-w-5xl text-center">
+        {/* Figure sitting on the name — principle from the reference, not a face */}
+        <div
+          aria-hidden
+          className="pointer-events-none mx-auto mb-[-2.4rem] grid h-36 w-36 place-items-center rounded-full border border-line bg-surface/80 md:mb-[-3.2rem] md:h-48 md:w-48"
+        >
+          <span className="display text-6xl text-mint md:text-7xl">L</span>
+        </div>
+
+        <h1 className="headline text-[clamp(2.6rem,9vw,6.5rem)]">
+          Lucas Henrique
           <br />
-          Henrique
-          <br />
-          <span className="italic text-accent">Campos</span>
+          Campos
         </h1>
-        <div className="mt-10 max-w-xl md:mt-14">
-          <p className="display text-3xl text-ink/90 italic md:text-5xl">
-            Construo o sistema atrás da venda.
-          </p>
-          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-mute">
-            Tecnologia, marketing e negócio no mesmo processo. Estudo, trabalho e
-            publico — ainda construindo a história, já no meio da operação.
-          </p>
-        </div>
 
-        <div className="mt-12 flex flex-wrap items-center gap-6 text-[12px] tracking-[0.18em] text-faint uppercase">
-          <a href="#work" className="text-accent hover:text-ink">
-            Ver o trabalho
-          </a>
-          <span className="hidden h-px w-10 bg-line md:block" />
-          <span>UNIFOR · Terus · Produtos próprios</span>
-        </div>
+        <p className="headline mx-auto mt-8 max-w-2xl text-[clamp(1.45rem,3.2vw,2.15rem)]">
+          Construo o sistema
+          <br />
+          <span className="text-mute">atrás da venda.</span>
+        </p>
       </div>
+
+      <dl className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-y-6 border-t border-line pt-6 md:grid-cols-4">
+        <div>
+          <dt className="kicker text-faint">Idade</dt>
+          <dd className="mt-1.5 text-sm text-ink/85">{site.age} anos</dd>
+        </div>
+        <div>
+          <dt className="kicker text-faint">Formação</dt>
+          <dd className="mt-1.5 text-sm text-ink/85">UNIFOR · Negócios</dd>
+        </div>
+        <div>
+          <dt className="kicker text-faint">Hoje</dt>
+          <dd className="mt-1.5 text-sm text-ink/85">Terus · produtos próprios</dd>
+        </div>
+        <div className="col-span-2 md:col-span-1 md:justify-self-end">
+          <a
+            href="#work"
+            className="group inline-flex items-center gap-3 text-[13px] tracking-[0.1em] text-ink uppercase"
+          >
+            Ver o trabalho
+            <span className="inline-block h-px w-8 bg-mint transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-14" />
+          </a>
+        </div>
+      </dl>
     </section>
   )
 }

@@ -1,33 +1,88 @@
 import { building } from '../data/content'
-import { Reveal } from './Reveal'
+import { useReveal } from '../hooks/useReveal'
+import { SectionHead } from './SectionHead'
 
 export function Building() {
-  return (
-    <section id="building" className="px-5 py-24 md:px-10 md:py-32">
-      <Reveal>
-        <p className="text-[12px] tracking-[0.28em] text-accent uppercase">Currently building</p>
-        <h2 className="display mt-3 max-w-3xl text-5xl md:text-7xl">
-          Produtos que ainda não pediram desculpa por estar incompletos.
-        </h2>
-        <p className="mt-6 max-w-lg text-[15px] text-mute">
-          Não é lista de ideias. É o que está em cima da mesa — com o status que realmente tem.
-        </p>
-      </Reveal>
+  const list = useReveal<HTMLOListElement>()
 
-      <div className="mt-16 divide-y divide-line border-y border-line">
-        {building.map((item, i) => (
-          <Reveal key={item.title}>
-            <article className="grid gap-4 py-10 md:grid-cols-[80px_1fr_1.2fr] md:items-start">
-              <p className="text-[12px] tracking-[0.2em] text-faint">0{i + 1}</p>
-              <div>
-                <h3 className="display text-3xl md:text-4xl">{item.title}</h3>
-                <p className="mt-2 text-[11px] tracking-[0.16em] text-accent uppercase">{item.status}</p>
+  return (
+    <section id="building" className="relative px-5 py-24 md:px-10 md:py-32">
+      <SectionHead
+        n="03"
+        label="Building"
+        lines={['O próximo capítulo', 'ainda está aberto.']}
+        aside="Produtos próprios. O status aqui é literal — nada é chamado de beta se não for."
+      />
+
+      <ol ref={list} data-reveal className="mt-16 grid gap-4 lg:grid-cols-3">
+        {building.map((item) => (
+          <li
+            key={item.name}
+            className={`rounded-2xl border border-line bg-surface p-7 md:p-8 ${
+              item.featured ? 'lg:col-span-3 lg:grid lg:grid-cols-12 lg:gap-10 lg:p-10' : ''
+            }`}
+          >
+            <div className={item.featured ? 'lg:col-span-4' : ''}>
+              <div className="flex items-baseline justify-between gap-4">
+                <span className="font-mono text-[12px] text-mint">{item.index}</span>
+                <span className="kicker text-faint">{item.access}</span>
               </div>
-              <p className="text-sm text-mute md:pt-2">{item.text}</p>
-            </article>
-          </Reveal>
+              <h3
+                className={`headline mt-4 ${
+                  item.featured ? 'text-[clamp(2rem,4vw,3rem)]' : 'text-2xl'
+                }`}
+              >
+                {item.name}
+              </h3>
+              <p className="mt-4 inline-flex items-center gap-2">
+                <span
+                  aria-hidden
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    item.status === 'Conceito' ? 'bg-faint' : 'bg-mint'
+                  }`}
+                />
+                <span className="kicker text-mute">{item.status}</span>
+              </p>
+            </div>
+
+            <div className={item.featured ? 'mt-6 lg:col-span-7 lg:col-start-6 lg:mt-0' : 'mt-5'}>
+              <p className="text-[15px] leading-relaxed text-mute">{item.description}</p>
+              <p className="mt-4 text-[13px] text-faint">{item.technologies.join(' · ')}</p>
+
+              {item.demoUrl ? (
+                <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
+                  <a
+                    href={item.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-center gap-2 text-[13px] text-ink"
+                  >
+                    Ver como está
+                    <span
+                      aria-hidden
+                      className="text-mint transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                  {item.githubUrl ? (
+                    <a
+                      href={item.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[13px] text-mute transition-colors duration-200 hover:text-ink"
+                    >
+                      Ver código
+                    </a>
+                  ) : null}
+                </div>
+              ) : (
+                <p className="mt-6 text-[13px] text-faint">Nada publicado ainda</p>
+              )}
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   )
 }

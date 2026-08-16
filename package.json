@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && vite build --base=/lucas-henrique-campos/",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
-    "framer-motion": "^13.1.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

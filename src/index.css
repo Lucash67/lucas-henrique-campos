@@ -2,26 +2,24 @@
 
 @theme {
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
-  --color-ink: #ece8e1;
-  --color-mute: #8f887c;
-  --color-faint: #5c574e;
-  --color-line: rgba(236, 232, 225, 0.1);
-  --color-accent: #c4a574;
-  --color-accent-soft: rgba(196, 165, 116, 0.16);
-  --color-bg: #0c0b0a;
-  --color-bg-2: #141311;
-  --color-surface: rgba(236, 232, 225, 0.035);
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
+
+  --color-bg: #07090c;
+  --color-surface: #0e1216;
+  --color-ink: #f4f6f8;
+  --color-mute: #9aa3ad;
+  --color-faint: #6d7680;
+  --color-line: rgba(244, 246, 248, 0.08);
+  --color-line-strong: rgba(244, 246, 248, 0.16);
+  --color-mint: #00d4a8;
+
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -31,52 +29,100 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #0c0b0a;
+  background: var(--color-mint);
+  color: #06120e;
 }
 
 :focus-visible {
-  outline: 1px solid var(--color-accent);
-  outline-offset: 3px;
+  outline: 1px solid var(--color-mint);
+  outline-offset: 4px;
 }
 
-.has-custom-cursor,
-.has-custom-cursor a,
-.has-custom-cursor button {
-  cursor: none;
+/* Hero name only — the one place serif carries identity */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
 }
 
-@media (pointer: coarse) {
-  .has-custom-cursor,
-  .has-custom-cursor a,
-  .has-custom-cursor button {
-    cursor: auto;
-  }
+/* Section headlines — bold grotesque, like the reference's strength */
+.headline {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.kicker {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* Static atmosphere: grid + wash. Painted once. No mouse tracking. */
+.atmosphere {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 18%, rgba(0, 212, 168, 0.07), transparent 58%),
+    linear-gradient(to right, rgba(244, 246, 248, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 246, 248, 0.035) 1px, transparent 1px);
+  background-size:
+    auto,
+    72px 72px,
+    72px 72px;
 }
 
 .grain {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 80;
-  opacity: 0.09;
+  z-index: 60;
+  opacity: 0.03;
   mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.display {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 0.92;
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 0.55s var(--ease-brand),
+    transform 0.55s var(--ease-brand);
+  will-change: opacity, transform;
 }
 
-.rule {
-  height: 1px;
-  background: var(--color-line);
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

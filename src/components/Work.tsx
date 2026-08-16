@@ -1,111 +1,126 @@
-import { moreDemos, projects, type Project } from '../data/content'
-import { Reveal } from './Reveal'
+import type { Project } from '../data/content'
+import { moreDemos, projects } from '../data/content'
+import { useReveal } from '../hooks/useReveal'
+import { ProjectMark } from './Mark'
+import { SectionHead } from './SectionHead'
 
-type Props = {
-  onOpen: (project: Project) => void
+function Actions({ project }: { project: Project }) {
+  return (
+    <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
+      <a
+        href={project.demoUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="group/link inline-flex items-center gap-2 text-[13px] text-ink"
+      >
+        Abrir projeto
+        <span
+          aria-hidden
+          className="text-mint transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+        >
+          ↗
+        </span>
+      </a>
+      {project.githubUrl ? (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-[13px] text-mute transition-colors duration-200 hover:text-ink"
+        >
+          Ver código
+        </a>
+      ) : null}
+    </div>
+  )
 }
 
-function statusLabel(status: Project['status']) {
-  if (status === 'live') return 'Demo ao vivo'
-  if (status === 'building') return 'Em desenvolvimento'
-  return 'Conceito'
-}
-
-export function Work({ onOpen }: Props) {
-  const featured = projects.find((p) => p.featured && p.id === 'lh-hub') ?? projects[0]
-  const rest = projects.filter((p) => p.id !== featured.id)
+function Featured({ project, flip }: { project: Project; flip: boolean }) {
+  const ref = useReveal<HTMLElement>()
 
   return (
-    <section id="work" className="px-5 py-24 md:px-10 md:py-32">
-      <Reveal>
-        <div className="mb-16 flex items-end justify-between gap-6">
-          <div>
-            <p className="text-[12px] tracking-[0.28em] text-accent uppercase">Selected work</p>
-            <h2 className="display mt-3 text-5xl md:text-7xl">O que já está no ar</h2>
-          </div>
-          <p className="hidden max-w-xs text-right text-sm text-mute md:block">
-            Uma seleção. Não é tudo que existe no computador — é o que sustenta a conversa.
-          </p>
+    <article ref={ref} data-reveal className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className={flip ? 'lg:order-2' : ''}>
+        <div className="flex items-baseline gap-4">
+          <span className="font-mono text-[12px] text-mint">{project.index}</span>
+          <span className="kicker text-faint">{project.category}</span>
+          <span className="kicker ml-auto text-faint">{project.year}</span>
         </div>
-      </Reveal>
+        <h3 className="headline mt-4 text-[clamp(2rem,5vw,3.25rem)]">{project.name}</h3>
+        <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-mute">{project.description}</p>
+        <p className="mt-5 text-[13px] text-faint">{project.technologies.join(' · ')}</p>
+        <Actions project={project} />
+      </div>
+      <a
+        href={project.demoUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Abrir ${project.name}`}
+        className={`block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 ${
+          flip ? 'lg:order-1' : ''
+        }`}
+      >
+        <ProjectMark id={project.id} />
+      </a>
+    </article>
+  )
+}
 
-      <Reveal>
-        <article
-          data-cursor
-          className={`group relative overflow-hidden rounded-sm bg-linear-to-br ${featured.tone} p-6 md:p-12`}
-        >
-          <div className="mb-16 flex items-start justify-between gap-4">
-            <p className="text-[12px] tracking-[0.22em] text-accent uppercase">{featured.category}</p>
-            <p className="text-[12px] tracking-[0.18em] text-faint uppercase">{featured.year}</p>
-          </div>
-          <h3 className="display max-w-3xl text-5xl md:text-8xl">{featured.title}</h3>
-          <p className="mt-6 max-w-lg text-[15px] text-mute">{featured.description}</p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => onOpen(featured)}
-              className="rounded-full border border-accent/40 bg-accent-soft px-5 py-2.5 text-[12px] tracking-[0.16em] text-accent uppercase"
-            >
-              Explorar projeto
-            </button>
-            {featured.demoUrl ? (
-              <a
-                href={featured.demoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-line px-5 py-2.5 text-[12px] tracking-[0.16em] text-ink/80 uppercase"
-              >
-                Abrir demo
-              </a>
-            ) : null}
-          </div>
-        </article>
-      </Reveal>
+export function Work() {
+  const featured = projects.filter((p) => p.featured)
+  const rest = projects.filter((p) => !p.featured)
+  const tail = useReveal<HTMLDivElement>()
 
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {rest.map((project, i) => (
-          <Reveal key={project.id} delay={i * 0.06}>
-            <article
-              data-cursor
-              className={`flex min-h-[340px] flex-col justify-between rounded-sm bg-linear-to-br ${project.tone} p-6 md:p-8`}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-[11px] tracking-[0.2em] text-accent uppercase">{project.category}</p>
-                <p className="text-[11px] tracking-[0.16em] text-faint uppercase">{statusLabel(project.status)}</p>
-              </div>
-              <div>
-                <h3 className="display text-4xl md:text-5xl">{project.title}</h3>
-                <p className="mt-4 max-w-md text-sm text-mute">{project.description}</p>
-                <button
-                  type="button"
-                  onClick={() => onOpen(project)}
-                  className="mt-8 text-[12px] tracking-[0.16em] text-ink uppercase underline decoration-line underline-offset-8 hover:decoration-accent"
-                >
-                  Explorar projeto
-                </button>
-              </div>
-            </article>
-          </Reveal>
+  return (
+    <section id="work" className="relative px-5 py-24 md:px-10 md:py-32">
+      <SectionHead
+        n="02"
+        label="Projetos"
+        lines={['Coisas que saíram', 'da pasta para o ar.']}
+        aside="Curadoria, não despejo. Todo link abaixo abre no navegador agora."
+      />
+
+      <div className="mt-20 space-y-24 md:space-y-28">
+        {featured.map((project, i) => (
+          <Featured key={project.id} project={project} flip={i % 2 === 1} />
         ))}
       </div>
 
-      <Reveal className="mt-16">
-        <p className="text-[12px] tracking-[0.22em] text-faint uppercase">Mais landings públicas</p>
+      <div className="mt-24 grid gap-6 md:grid-cols-3">
+        {rest.map((project) => (
+          <article
+            key={project.id}
+            className="flex flex-col rounded-2xl border border-line bg-surface p-6"
+          >
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-mono text-[12px] text-mint">{project.index}</span>
+              <span className="kicker text-faint">{project.category}</span>
+            </div>
+            <h3 className="headline mt-5 text-2xl">{project.name}</h3>
+            <p className="mt-3 flex-1 text-sm leading-relaxed text-mute">{project.description}</p>
+            <p className="mt-5 text-[12px] text-faint">{project.technologies.join(' · ')}</p>
+            <Actions project={project} />
+          </article>
+        ))}
+      </div>
+
+      <div ref={tail} data-reveal className="mt-16 border-t border-line pt-8">
+        <p className="kicker text-faint">Também no ar</p>
         <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
-          {moreDemos.map((d) => (
-            <li key={d.href}>
+          {moreDemos.map((demo) => (
+            <li key={demo.href}>
               <a
-                href={d.href}
+                href={demo.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm text-mute transition-colors hover:text-ink"
+                className="text-sm text-mute underline decoration-transparent underline-offset-[6px] transition-colors duration-200 hover:text-ink hover:decoration-mint"
               >
-                {d.label}
+                {demo.label}
               </a>
             </li>
           ))}
         </ul>
-      </Reveal>
+      </div>
     </section>
   )
 }
