@@ -7,8 +7,11 @@ import { Nav } from './components/Nav'
 import { Path } from './components/Path'
 import { Toolkit } from './components/Toolkit'
 import { Work } from './components/Work'
+import { usePointerGlow } from './hooks/usePointerGlow'
 
 export default function App() {
+  usePointerGlow()
+
   return (
     <>
       <a
@@ -18,6 +21,7 @@ export default function App() {
         Ir para o trabalho
       </a>
       <div className="atmosphere" aria-hidden />
+      <div className="pointer-glow" aria-hidden />
       <div className="grain" aria-hidden />
       <Nav />
       <main className="relative z-10">

@@ -5,14 +5,14 @@
   --font-serif: "Fraunces", ui-serif, Georgia, serif;
   --font-mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
 
-  --color-bg: #07090c;
-  --color-surface: #0e1216;
-  --color-ink: #f4f6f8;
-  --color-mute: #9aa3ad;
-  --color-faint: #6d7680;
-  --color-line: rgba(244, 246, 248, 0.08);
-  --color-line-strong: rgba(244, 246, 248, 0.16);
-  --color-mint: #00d4a8;
+  --color-bg: #03070d;
+  --color-surface: #0d0d10;
+  --color-ink: #f5f5f7;
+  --color-mute: #9a9aa2;
+  --color-faint: #6d6d75;
+  --color-line: rgba(255, 255, 255, 0.11);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-mint: #2997ff;
 
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -36,7 +36,7 @@ body {
 
 ::selection {
   background: var(--color-mint);
-  color: #06120e;
+  color: #03070d;
 }
 
 :focus-visible {
@@ -67,20 +67,50 @@ body {
   line-height: 1.4;
 }
 
-/* Static atmosphere: grid + wash. Painted once. No mouse tracking. */
+/* Navy wash + grid. The moving light lives in .pointer-glow. */
 .atmosphere {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 18%, rgba(0, 212, 168, 0.07), transparent 58%),
-    linear-gradient(to right, rgba(244, 246, 248, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(244, 246, 248, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(91, 164, 235, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 164, 235, 0.045) 1px, transparent 1px),
+    radial-gradient(circle at 50% -8%, #173a60 0%, #081828 38%, #03070d 78%);
   background-size:
-    auto,
-    72px 72px,
-    72px 72px;
+    68px 68px,
+    68px 68px,
+    auto;
+}
+
+.pointer-glow {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    900px circle at var(--mouse-x, 70%) var(--mouse-y, 10%),
+    rgba(41, 151, 255, 0.1),
+    transparent 42%
+  );
+}
+
+.hero-glow {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: -8%;
+  z-index: 0;
+  width: min(780px, 80vw);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  background: radial-gradient(
+    circle,
+    rgba(41, 151, 255, 0.2),
+    rgba(117, 77, 255, 0.08) 38%,
+    transparent 70%
+  );
+  filter: blur(30px);
 }
 
 .project-card {
@@ -90,6 +120,13 @@ body {
   border: 1px solid var(--color-line);
   border-radius: 1.25rem;
   background: var(--color-surface);
+  transition: border-color 0.35s var(--ease-brand);
+}
+
+@media (hover: hover) {
+  .project-card:hover {
+    border-color: rgba(41, 151, 255, 0.32);
+  }
 }
 
 .scene {
@@ -99,7 +136,7 @@ body {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 1rem;
-  background: #0a0d11;
+  background: #08090d;
   color: var(--color-ink);
 }
 

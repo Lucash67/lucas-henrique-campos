@@ -89,6 +89,11 @@
   [data-reveal].is-in,
   a,
   button,
+  .pointer-glow,
+  .hero-glow {
+    display: none;
+  }
+
   .scene__phone,
   .scene__orbit,
   .scene__float {

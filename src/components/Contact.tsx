@@ -25,7 +25,7 @@ export function Contact() {
           href={site.whatsapp}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex rounded-full bg-mint px-5 py-2.5 text-[13px] font-medium text-[#06120e] transition-opacity duration-200 hover:opacity-90"
+          className="inline-flex rounded-full bg-mint px-5 py-2.5 text-[13px] font-medium text-[#03070d] transition-opacity duration-200 hover:opacity-90"
         >
           Conversar no WhatsApp ↗
         </a>

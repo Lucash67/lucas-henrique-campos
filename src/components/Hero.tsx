@@ -11,21 +11,22 @@ export function Hero() {
       </p>
 
       <div className="relative mx-auto w-full max-w-5xl text-center">
+        <div className="hero-glow" aria-hidden />
         {/* Figure sitting on the name — principle from the reference, not a face */}
         <div
           aria-hidden
-          className="pointer-events-none mx-auto mb-[-2.4rem] grid h-36 w-36 place-items-center rounded-full border border-line bg-surface/80 md:mb-[-3.2rem] md:h-48 md:w-48"
+          className="relative z-[1] pointer-events-none mx-auto mb-[-2.4rem] grid h-36 w-36 place-items-center rounded-full border border-line bg-surface/80 md:mb-[-3.2rem] md:h-48 md:w-48"
         >
           <span className="display text-6xl text-mint md:text-7xl">L</span>
         </div>
 
-        <h1 className="headline text-[clamp(2.6rem,9vw,6.5rem)]">
+        <h1 className="relative z-[1] headline text-[clamp(2.6rem,9vw,6.5rem)]">
           Lucas Henrique
           <br />
           Campos
         </h1>
 
-        <p className="headline mx-auto mt-8 max-w-2xl text-[clamp(1.45rem,3.2vw,2.15rem)]">
+        <p className="relative z-[1] headline mx-auto mt-8 max-w-2xl text-[clamp(1.45rem,3.2vw,2.15rem)]">
           Construo o sistema
           <br />
           <span className="text-mute">atrás da venda.</span>
