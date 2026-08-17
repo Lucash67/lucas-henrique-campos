@@ -7,8 +7,8 @@ Não implementar até o Lucas mandar o material. Não inventar substituto.
 - Encaixa no selo que hoje é o “L”
 
 ## Projetos (1 still ~1600px, WebP/PNG, sem dado real)
-- [x] Odontology Finance — login demo
-- [x] Malu Nutri — hero / identidade
+- [x] Odontology Finance — dashboard
+- [x] Malu Nutri — página (tela cheia)
 - [x] Evolução Física / Dieta & Treino — login FORMA
 - [ ] Makani / Mansão / LM Mall — 1 still cada (ou recorte da demo)
 - [ ] LH Hub — painel, dado fictício

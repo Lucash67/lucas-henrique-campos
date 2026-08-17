@@ -141,7 +141,8 @@ body {
 }
 
 .scene--frame {
-  aspect-ratio: 16 / 10;
+  display: block;
+  aspect-ratio: auto;
 }
 
 .scene__art {
@@ -150,10 +151,10 @@ body {
 }
 
 .scene__shot {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
+  object-fit: contain;
 }
 
 .grain {

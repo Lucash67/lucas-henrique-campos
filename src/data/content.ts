@@ -87,7 +87,7 @@ export const projects: Project[] = [
     demoUrl: 'https://odontology-finance.vercel.app',
     githubUrl: 'https://github.com/Lucash67/odontology-finance',
     featured: true,
-    frame: '/frames/odontology-finance.png',
+    frame: '/frames/odontology-finance.png?v=2',
   },
   {
     id: 'malu-nutri',
@@ -101,7 +101,7 @@ export const projects: Project[] = [
     demoUrl: 'https://malu-nutri.vercel.app',
     githubUrl: 'https://github.com/Lucash67/malu_nutri',
     featured: true,
-    frame: '/frames/malu-nutri.png',
+    frame: '/frames/malu-nutri.png?v=2',
   },
   {
     id: 'evolucao-fisica',
