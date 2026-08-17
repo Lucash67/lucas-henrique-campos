@@ -1,6 +1,14 @@
 type Kind = 'phone' | 'ledger' | 'health' | 'landing'
 
-export function ProjectMark({ id }: { id: string }) {
+export function ProjectMark({ id, frame }: { id: string; frame?: string }) {
+  if (frame) {
+    return (
+      <div aria-hidden className="scene scene--frame">
+        <img src={frame} alt="" className="scene__shot" />
+      </div>
+    )
+  }
+
   const kind = markFor(id)
   return (
     <div aria-hidden className="scene">

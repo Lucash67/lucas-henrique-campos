@@ -14,7 +14,7 @@ function ProjectCard({ project }: { project: Project }) {
         <span className="kicker text-faint">{project.category}</span>
       </div>
 
-      <ProjectMark id={project.id} />
+      <ProjectMark id={project.id} frame={project.frame} />
 
       <h3 className="headline mt-5 text-[1.65rem]">{project.name}</h3>
       <p className="mt-3 flex-1 text-[14px] leading-relaxed text-mute">{project.description}</p>

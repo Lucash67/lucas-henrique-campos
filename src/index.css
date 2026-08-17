@@ -103,9 +103,20 @@ body {
   color: var(--color-ink);
 }
 
+.scene--frame {
+  aspect-ratio: 16 / 10;
+}
+
 .scene__art {
   width: 72%;
   height: 72%;
+}
+
+.scene__shot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .grain {

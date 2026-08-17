@@ -69,6 +69,8 @@ export type Project = {
   demoUrl: string
   githubUrl?: string
   featured?: boolean
+  /** Public still, only when Lucas sent a real capture. */
+  frame?: string
 }
 
 /** Shipped work — things another person can open right now. */
@@ -85,6 +87,7 @@ export const projects: Project[] = [
     demoUrl: 'https://odontology-finance.vercel.app',
     githubUrl: 'https://github.com/Lucash67/odontology-finance',
     featured: true,
+    frame: '/frames/odontology-finance.png',
   },
   {
     id: 'malu-nutri',
@@ -98,6 +101,7 @@ export const projects: Project[] = [
     demoUrl: 'https://malu-nutri.vercel.app',
     githubUrl: 'https://github.com/Lucash67/malu_nutri',
     featured: true,
+    frame: '/frames/malu-nutri.png',
   },
   {
     id: 'evolucao-fisica',
@@ -110,6 +114,7 @@ export const projects: Project[] = [
     technologies: ['React', 'TypeScript', 'Vite'],
     demoUrl: 'https://evolucaofisica-cursor.vercel.app',
     githubUrl: 'https://github.com/Lucash67/evolucaofisica-cursor',
+    frame: '/frames/evolucao-fisica.png',
   },
   {
     id: 'makani',
